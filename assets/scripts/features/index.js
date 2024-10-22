@@ -1,3 +1,7 @@
+if (process.env.FEATURE_ANALYTICS === '1') {
+  import('./analytics')
+}
+
 if (process.env.FEATURE_VIDEOPLAYER === '1') {
   import('./videoplayer')
 }
