@@ -30,11 +30,30 @@
   {{ $authorImage = $author.image }}
 {{ end }}
 {{ $authorImage := resources.Get $authorImage }}
-
 {{/* apply image processing. don't use "Fit" in svg or gif because its not supported */}}
 {{ if and $authorImage (and (ne $authorImage.MediaType.SubType "svg") ( ne $authorImage.MediaType.SubType "gif")) }}
   {{ $authorImage = $authorImage.Fit "148x148" }}
 {{ end }}
+
+{{/* allow for multiple, rotating author images */}}
+{{ $authorImageRotate := false }}
+{{ if $author.rotateImages }}
+  {{ $authorImageRotate = true }}
+{{ end }}
+{{/* if author.rotate is set, then it is an array of images */}}
+{{/* otherwise, it is a single image */}}
+{{ if $authorImageRotate }}
+  {{ range $author.rotateImages }}
+    {{ $aImage := resources.Get . }}
+    {{/* apply image processing. don't use "Fit" in svg or gif because its not supported */}}
+    {{ if and $aImage (and (ne $aImage.MediaType.SubType "svg") ( ne $aImage.MediaType.SubType "gif")) }}
+      {{ $aImage = $aImage.Fit "148x148" }}
+    {{ end }}
+    {{ hugo.Store.Add "rotateImages" (slice $aImage.RelPermalink) }}
+  {{ end }}
+{{ end}}
+
+
 {{/* get file that matches the filename as specified as src="" in shortcode */}}
 {{ $src := resources.Get $backgroundImage }}
 
@@ -120,22 +139,22 @@
     }
     /* 300 to X */
     @media (min-width: 500px) and (max-width: 800px) { /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {   
+      #homePageBackgroundImageDivStyled {
           background-image: url('{{ $small.RelPermalink }}');
         }
     }
     @media (min-width: 801px) and (max-width: 1200px) { /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {   
+      #homePageBackgroundImageDivStyled {
           background-image: url('{{ $medium.RelPermalink }}');
         }
     }
     @media (min-width: 1201px) and (max-width: 1500px) { /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {   
+      #homePageBackgroundImageDivStyled {
           background-image: url('{{ $large.RelPermalink }}');
         }
     }
     @media (min-width: 1501px) { /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {   
+      #homePageBackgroundImageDivStyled {
           background-image: url('{{ $src.RelPermalink }}');
         }
     }
@@ -147,22 +166,22 @@
       }
       /* 300 to X */
       @media (min-width: 500px) and (max-width: 800px) { /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {   
+        #homePageBackgroundImageDivStyled {
           background-image: url('{{ $darkSmall.RelPermalink }}');
         }
       }
       @media (min-width: 801px) and (max-width: 1200px) { /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {   
+        #homePageBackgroundImageDivStyled {
           background-image: url('{{ $darkMedium.RelPermalink }}');
         }
       }
       @media (min-width: 1201px) and (max-width: 1500px) { /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {   
+        #homePageBackgroundImageDivStyled {
           background-image: url('{{ $darkLarge.RelPermalink }}');
         }
       }
       @media (min-width: 1501px) { /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {   
+        #homePageBackgroundImageDivStyled {
           background-image: url('{{ $darkSrc.RelPermalink }}');
         }
       }
