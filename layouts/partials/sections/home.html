@@ -193,10 +193,24 @@
     class="background container-fluid"
   ></div>
   <div class="container content text-center">
-    <img src="{{ $authorImage.RelPermalink }}"
-      class="rounded-circle mx-auto d-block img-fluid"
-      alt="Author Image"
-    />
+    {{ if $authorImageRotate }}
+      <div id="cf4a">
+
+       {{ $tempImages := hugo.Store.Get "rotateImages" }}
+        {{ range $tempImages }}
+          {{ $authorImage := . }}
+          <img src="{{ $authorImage }}"
+          loading="lazy"
+          class="cf4a rounded-circle mx-auto d-block img-fluid "
+          alt="Author Image" />
+        {{ end }}
+      </div>
+      {{ else }}
+        <img src="{{ $authorImage.RelPermalink }}"
+        loading="lazy"
+        class="rounded-circle mx-auto d-block img-fluid"
+        alt="Author Image" />
+      {{ end }}
     <h1 class="greeting"> {{ $author.greeting }} {{ $name }}</h1>
     {{ if $author.subtitle }}
       <h2 class="greeting-subtitle">{{ $author.subtitle }}</h2>
