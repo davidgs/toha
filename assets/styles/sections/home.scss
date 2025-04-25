@@ -24,7 +24,7 @@
 
   /*
     Resolves https://github.com/hugo-toha/toha/issues/70
-  
+
     fixed attached images use the whole <body> size. On mobile this can get really
     tall which blows your image out. Setting the attachment back to scroll allows
     your cover image to stretch within its own container
@@ -128,4 +128,78 @@ html[data-theme='dark'] {
       color: get-dark-color('text-over-accent-color');
     }
   }
+}
+
+#cf4a img {
+  position:absolute;
+  width: 148px;
+  height: 148px;
+  background-color: #e7e7ef;
+  padding: 5px;
+  margin-bottom: 10px;
+  vertical-align: middle;
+
+}
+
+ #cf4a {
+  width: 148px;
+  height: 148px;
+  display: inline-block;
+}
+
+
+#cf4a img {
+  -webkit-animation-name: cf4FadeInOut;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 8s;
+  background-color: white;
+
+  -moz-animation-name: cf4FadeInOut;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-duration: 8s;
+
+  -o-animation-name: cf4FadeInOut;
+  -o-animation-timing-function: ease-in-out;
+  -o-animation-iteration-count: infinite;
+  -o-animation-duration: 8s;
+
+  animation-name: cf4FadeInOut;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 8s;
+
+}
+#cf4a img:nth-of-type(1) {
+  -webkit-animation-delay: 6s;
+  -moz-animation-delay: 6s;
+  -o-animation-delay: 6s;
+  animation-delay: 6s;
+  background-color: white;
+
+}
+#cf4a img:nth-of-type(2) {
+  -webkit-animation-delay: 4s;
+  -moz-animation-delay: 4s;
+  -o-animation-delay: 4s;
+  animation-delay: 4s;
+  background-color: white;
+
+}
+#cf4a img:nth-of-type(3) {
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  -o-animation-delay: 2s;
+  animation-delay: 2s;
+  background-color: white;
+
+}
+#cf4a img:nth-of-type(4) {
+  -webkit-animation-delay: 0;
+  -moz-animation-delay: 0;
+  -o-animation-delay: 0;
+  animation-delay: 0;
+  background-color: white;
+
 }
